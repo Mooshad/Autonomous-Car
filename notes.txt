@@ -1,0 +1,21 @@
+Lanes:
+  scp - Starting car position
+  sip - Starting intersection position
+  eip - Ending intersection position
+  ecp - Ending car position
+Car:
+  position
+  lane
+  x-vel
+  y-vel
+  x-acc
+  y-acc
+World:
+  cars - List of cars in the simulation. Constantly changing.
+  
+
+Coordinates:
+Lane 1
+Lane 2
+Lane 3
+Lane 4
