@@ -5,6 +5,7 @@ class car:
     # acc is a 2d vector containing current x and y acceleration.
     def __init__(self, lane, vel, acc, color):
         self.position = lane.scp
+        self.lane = lane
         self.lane_index = lane.index
         self.vel = vel
         self.acc = [0,0]

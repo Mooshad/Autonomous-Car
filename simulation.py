@@ -35,6 +35,7 @@ class SimWindow(pyglet.window.Window):
     lane_9 = lane([640,1044], [640, 789], [1055, 439], [1502, 439], 9) # blue left
     lane_10 = lane([575,1044], [575, 789], [575, 250], [575, 0], 10) # blue straight
     lane_11 =  lane([508,1044], [508, 789], [448, 737], [0, 737], 11) # blue right
+    
     # --------------- END CONSTANT DEFINITONS ----------------
     
     def __init__(self, *args, **kwargs):
