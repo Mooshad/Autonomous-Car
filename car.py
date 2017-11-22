@@ -18,4 +18,7 @@ class car:
         self.vel[1] = self.vel[1] + self.acc[1]
         self.acc = new_acc
 
+def check_collision(car1, car2):
+    pass
+
     

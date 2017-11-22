@@ -4,6 +4,7 @@ from car import car
 from lane import lane
 from random import *
 from copy import deepcopy
+from math import *
 
 # This class has everything needed to init and animate our simulation
 class SimWindow(pyglet.window.Window):
@@ -51,6 +52,7 @@ class SimWindow(pyglet.window.Window):
         # Draw all cars in loc
         for c in self.loc:
             temp = SimObject(c.position[0], c.position[1], 'resources/'+c.color+'_car.png')
+            temp.sprite.rotation = degrees(atan2(c.vel[1], c.vel[0]))
             temp.sprite.draw()
 
             
