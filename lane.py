@@ -6,8 +6,9 @@ class lane:
     # sip - starting intersection position
     # eip - ending intersection position
     # ecp - ending car position
-    def __init__(self, scp, sip, eip, ecp):
+    def __init__(self, scp, sip, eip, ecp, index):
         self.scp = scp
         self.sip = sip
         self.eip = eip
         self.ecp = ecp
+        self.index = index

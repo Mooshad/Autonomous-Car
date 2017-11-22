@@ -19,21 +19,22 @@ class SimWindow(pyglet.window.Window):
     # Initialize lanes
     # starting car position, intersection start,
     # intersection end, ending car position
-    lane_0 = lane([0,439], [448, 439], [866,789], [866, 1044]) # pink left
-    lane_1 = lane([0,369], [448, 369], [1055, 369], [1502, 369]) # pink straight
-    lane_2 = lane([0,299], [448, 299], [494, 299], [494, 0]) # pink right
+    # Need to check later to make sure ending inter and car positions are okay
+    lane_0 = lane([0,430], [440, 430], [848,828], [848, 1044], 0) # pink left
+    lane_1 = lane([0,360], [440, 360], [1060, 360], [1502, 360], 1) # pink straight
+    lane_2 = lane([0,295], [440, 295], [473, 234], [473, 0], 2) # pink right
 
-    lane_3 = lane([865,0], [865, 250], [448, 606], [0, 606]) # green left
-    lane_4 = lane([935,0], [935, 250], [935, 787], [935, 1044]) # green straight
-    lane_5 = lane([1005,0], [1005, 250], [1055, 299], [1502, 299]) # green right
+    lane_3 = lane([855,0], [855, 242], [428, 630], [0, 630], 3) # green left
+    lane_4 = lane([930,0], [930, 242], [930, 808], [930, 1044], 4) # green straight
+    lane_5 = lane([987,0], [987, 242], [1064, 323], [1502, 323], 5) # green right
 
-    lane_6 = lane([1502,606], [1055, 606], [628, 250], [628, 0]) # yellow left
-    lane_7 = lane([1502,670], [1055, 670], [448, 670], [0, 670]) # yellow straight
-    lane_8 = lane([1502,738], [1055, 738], [1005, 789], [1005, 1044]) # yellow right
+    lane_6 = lane([1502,626], [1055, 626], [628, 250], [628, 0], 6) # yellow left
+    lane_7 = lane([1502,690], [1055, 690], [448, 690], [0, 690], 7) # yellow straight
+    lane_8 = lane([1502,758], [1055, 758], [1005, 789], [1005, 1044], 8) # yellow right
 
-    lane_9 = lane([625,1044], [625, 789], [1055, 439], [1502, 439]) # blue left
-    lane_10 = lane([560,1044], [560, 789], [560, 250], [560, 0]) # blue straight
-    lane_11 =  lane([492,1044], [492, 789], [448, 737], [0, 737]) # blue right
+    lane_9 = lane([640,1044], [640, 789], [1055, 439], [1502, 439], 9) # blue left
+    lane_10 = lane([575,1044], [575, 789], [575, 250], [575, 0], 10) # blue straight
+    lane_11 =  lane([508,1044], [508, 789], [448, 737], [0, 737], 11) # blue right
     # --------------- END CONSTANT DEFINITONS ----------------
     
     def __init__(self, *args, **kwargs):
