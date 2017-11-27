@@ -34,11 +34,11 @@ class StGame(object):
 	# there is no max speed considered. 
 	def strategicGame(self, crashCars):
 		if len(crashCars) == 3:
-			sol = [1, 2, 3]
+			sol = [-1, 0, 1]
 			random.shuffle(sol)
 			return (sol)
 		elif len(crashCars) == 2:
-			sol = [1, 2]
+			sol = [0, 1]
 			random.shuffle(sol)
 			return (sol)
 		else:
