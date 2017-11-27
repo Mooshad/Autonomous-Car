@@ -1,4 +1,5 @@
 from random import *
+import math
 
 class car:
     # Initialize car.
@@ -28,16 +29,29 @@ class car:
         
     # On tick, update velocity and acceleration
     def on_tick(self, new_acc):
+
+        self.vel[0] = self.vel[0] + self.acc[0]
+        self.vel[1] = self.vel[1] + self.acc[1]
+
         # Handle case when not in the intersection
         if out_of_intersection(self):
-            self.vel[0] = self.vel[0] + self.acc[0]
-            self.vel[1] = self.vel[1] + self.acc[1]
             self.position[0] = self.position[0] + self.vel[0]
             self.position[1] = self.position[1] + self.vel[1]
-            self.acc = new_acc
-            self.time = self.time + 1
+        
+        # Handle case when in the intersection
         else:
-            pass
+            dx = self.position[0] - self.lane.eip[0]
+            dy = self.position[1] - self.lane.eip[1]
+            dz = math.sqrt(dx**2 + dy**2)
+
+            self.vel[0] = int(dx/dz * self.vel[0])
+            self.vel[1] = int(dy/dz * self.vel[1])
+
+            self.position[0] = self.position[0] + self.vel[0]
+            self.position[1] = self.position[1] + self.vel[1]
+
+        self.acc = new_acc
+        self.time = self.time + 1
             
 
             
