@@ -70,31 +70,30 @@ class SimWindow(pyglet.window.Window):
         # ON TOP OF EACH OTHER
         if(randint(0,self.SPAWN_RATE) == 0):
             lane = randint(0, 11)
-            vel = randint(1,5)
             if lane == 0:
-                self.loc.append(car(deepcopy(self.lane_0), [vel, 0], [0,0], 'blue'))
+                self.loc.append(car(deepcopy(self.lane_0), [0,0], 'blue'))
             if lane == 1:
-                self.loc.append(car(deepcopy(self.lane_1), [vel, 0], [0,0], 'yellow'))
+                self.loc.append(car(deepcopy(self.lane_1), [0,0], 'yellow'))
             if lane == 2:
-                self.loc.append(car(deepcopy(self.lane_2), [vel, 0], [0,0], 'green'))
+                self.loc.append(car(deepcopy(self.lane_2), [0,0], 'green'))
             if lane == 3:
-                self.loc.append(car(deepcopy(self.lane_3), [0, vel], [0,0], 'pink'))
+                self.loc.append(car(deepcopy(self.lane_3), [0,0], 'pink'))
             if lane == 4:
-                self.loc.append(car(deepcopy(self.lane_4), [0, vel], [0,0], 'blue'))
+                self.loc.append(car(deepcopy(self.lane_4), [0,0], 'blue'))
             if lane == 5:
-                self.loc.append(car(deepcopy(self.lane_5), [0, vel], [0,0], 'yellow'))
+                self.loc.append(car(deepcopy(self.lane_5), [0,0], 'yellow'))
             if lane == 6:
-                self.loc.append(car(deepcopy(self.lane_6), [-vel, 0], [0,0], 'green'))
+                self.loc.append(car(deepcopy(self.lane_6), [0,0], 'green'))
             if lane == 7:
-                self.loc.append(car(deepcopy(self.lane_7), [-vel, 0], [0,0], 'pink'))
+                self.loc.append(car(deepcopy(self.lane_7), [0,0], 'pink'))
             if lane == 8:
-                self.loc.append(car(deepcopy(self.lane_8), [-vel, 0], [0,0], 'blue'))
+                self.loc.append(car(deepcopy(self.lane_8), [0,0], 'blue'))
             if lane == 9:
-                self.loc.append(car(deepcopy(self.lane_9), [0, -vel], [0,0], 'yellow'))
+                self.loc.append(car(deepcopy(self.lane_9), [0,0], 'yellow'))
             if lane == 10:
-                self.loc.append(car(deepcopy(self.lane_10), [0, -vel], [0,0], 'green'))
+                self.loc.append(car(deepcopy(self.lane_10), [0,0], 'green'))
             if lane == 11:
-                self.loc.append(car(deepcopy(self.lane_11), [0, -vel], [0,0], 'pink'))
+                self.loc.append(car(deepcopy(self.lane_11), [0,0], 'pink'))
 
             
 if __name__ == "__main__":
