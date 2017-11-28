@@ -84,37 +84,56 @@ def MergeAndSplit(p, crashPenalty,carLists,maxIteration):
     else:
         # for merge
         for m in range(maxIteration):
+            dumpCoalitiontoGo = deepcopy(CoalitiontoGo)
+            dumpCoalitionNottoGo = deepcopy(CoalitionNottoGo)
             # random pick a car to join the coalition.
-            ind = randint(0,len(CoalitionNottoGo)-1)
-            cartomerge = CoalitionNottoGo[ind]    # potential bug !!!
-            CoalitiontoGo.append(cartomerge)
-            CoalitiontoGo.remove(cartomerge)
+            ind = randint(0, len(dumpCoalitionNottoGo)-1)
+            cartomerge = dumpCoalitionNottoGo[ind]    # potential bug !!!
+            dumpCoalitiontoGo.append(cartomerge)
+            dumpCoalitionNottoGo.remove(cartomerge)
 
             currentPayoff = 0
-            for cinc in CoalitiontoGo:
-                currentPayoff = currentPayoff + Payoff(p, crashPenalty, cinc, CoalitiontoGo)
-            currentPayoff = currentPayoff + len(CoalitionNottoGo)
+            validCoalition = True
+            for cinc in dumpCoalitiontoGo:
+                individualpayoff = Payoff(p, crashPenalty, cinc, dumpCoalitiontoGo)
+                if individualpayoff > 1:
+                    break
+                else:
+                    currentPayoff = currentPayoff + individualpayoff
+            currentPayoff = currentPayoff + len(dumpCoalitionNottoGo)
 
-            if bestPayoff >= currentPayoff:
-                answer_InCoalition = deepcopy(CoalitiontoGo)
-                answer_OutCoalition = deepcopy(CoalitionNottoGo)
+            if bestPayoff >= currentPayoff and validCoalition:
+                answer_InCoalition = deepcopy(dumpCoalitiontoGo)
+                answer_OutCoalition = deepcopy(dumpCoalitionNottoGo)
                 bestPayoff = currentPayoff
+                CoalitiontoGo = deepcopy(dumpCoalitiontoGo)
+                CoalitionNottoGo = deepcopy(dumpCoalitionNottoGo)
+
         # for split
         for m in range(maxIteration):
+            dumpCoalitiontoGo = deepcopy(CoalitiontoGo)
+            dumpCoalitionNottoGo = deepcopy(CoalitionNottoGo)
             # random pick a car to split from the coalition.
-            ind = randint(0,len(CoalitiontoGo)-1)
-            cartomerge = CoalitionNottoGo[ind]    # potential bug !!!
-            CoalitiontoGo.remove(cartomerge)
-            CoalitiontoGo.append(cartomerge)
+            ind = randint(0,len(dumpCoalitiontoGo)-1)
+            cartomerge = dumpCoalitionNottoGo[ind]    # potential bug !!!
+            dumpCoalitiontoGo.remove(cartomerge)
+            dumpCoalitionNottoGo.append(cartomerge)
 
             currentPayoff = 0
-            for cinc in CoalitiontoGo:
-                currentPayoff = currentPayoff + Payoff(p, crashPenalty, cinc, CoalitiontoGo)
-            currentPayoff = currentPayoff + len(CoalitionNottoGo)
+            validCoalition = True
+            for cinc in dumpCoalitiontoGo:
+                individualpayoff = Payoff(p, crashPenalty, cinc, dumpCoalitiontoGo)
+                if individualpayoff > 1:
+                    break
+                else:
+                    currentPayoff = currentPayoff + individualpayoff
+            currentPayoff = currentPayoff + len(dumpCoalitionNottoGo)
 
-            if bestPayoff >= currentPayoff:
-                answer_InCoalition = deepcopy(CoalitiontoGo)
-                answer_OutCoalition = deepcopy(CoalitionNottoGo)
+            if bestPayoff >= currentPayoff and validCoalition:
+                answer_InCoalition = deepcopy(dumpCoalitiontoGo)
+                answer_OutCoalition = deepcopy(dumpCoalitionNottoGo)
                 bestPayoff = currentPayoff
+                CoalitiontoGo = deepcopy(dumpCoalitiontoGo)
+                CoalitionNottoGo = deepcopy(dumpCoalitionNottoGo)
 
     return answer_InCoalition,answer_OutCoalition
