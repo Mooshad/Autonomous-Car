@@ -66,12 +66,27 @@ class car:
         # interpolation. Also find new car rotation based off direction
         # vector.
         else:
+            self.last_position = self.position
             self.position = intersection_pos(self)
+
+        print(check_out_of_bounds(self))
         
         self.acc = new_acc
         self.time = self.time + 1
 
-            
+# Check if car has left the simulation area
+def check_out_of_bounds(car):
+    lane = car.lane
+    if lane.index == 11 or lane.index == 7 or lane.index == 3:
+        return car.position[0] < -42
+    elif lane.index == 2 or lane.index == 10 or lane.index == 6:
+        return car.position[1] < 0
+    elif lane.index == 9 or lane.index == 1 or lane.index == 5:
+        return car.position[0] > 1000
+    elif lane.index == 0 or lane.index == 4 or lane.index == 8:
+        return car.position[1] > 1042
+
+
 def check_collision(car1, car2):
     pass
 
@@ -276,5 +291,5 @@ def intersection_pos(car):
         angle = angle + omega
         x = x - r * omega * math.cos(angle + math.pi / 2)
         y = y - r * omega * math.sin(angle + math.pi / 2)
-        print [x, y]
+        #print [x, y]
         return [x,y]
