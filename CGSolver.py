@@ -56,7 +56,7 @@ def Payoff(p,crashPenalty,mycar,othercars):
     if n == 0:
         return 0
     else:
-        return crashPenalty * p * n/ (len(othercars) - n-1)
+        return crashPenalty * p * n/ (len(othercars) - n)
 
 def MergeAndSplit(p, crashPenalty,carLists,maxIteration):
     CoalitiontoGo = []
@@ -68,12 +68,8 @@ def MergeAndSplit(p, crashPenalty,carLists,maxIteration):
         else:
             CoalitionNottoGo.append(c)
 
-    currentPayoff = 0
+    currentPayoff = len(CoalitionNottoGo)
     # init best group payoff with init coalition.
-
-    for cinc in CoalitiontoGo:
-        currentPayoff = currentPayoff + Payoff(p,crashPenalty,cinc,CoalitiontoGo)
-    currentPayoff = currentPayoff + len(CoalitionNottoGo)
 
     bestPayoff = deepcopy(currentPayoff)
     answer_InCoalition = deepcopy(CoalitiontoGo)
@@ -97,6 +93,7 @@ def MergeAndSplit(p, crashPenalty,carLists,maxIteration):
             for cinc in dumpCoalitiontoGo:
                 individualpayoff = Payoff(p, crashPenalty, cinc, dumpCoalitiontoGo)
                 if individualpayoff > 1:
+                    currentPayoff = bestPayoff + 1
                     break
                 else:
                     currentPayoff = currentPayoff + individualpayoff
@@ -124,6 +121,7 @@ def MergeAndSplit(p, crashPenalty,carLists,maxIteration):
             for cinc in dumpCoalitiontoGo:
                 individualpayoff = Payoff(p, crashPenalty, cinc, dumpCoalitiontoGo)
                 if individualpayoff > 1:
+                    currentPayoff = bestPayoff + 1
                     break
                 else:
                     currentPayoff = currentPayoff + individualpayoff
