@@ -68,8 +68,6 @@ class car:
         else:
             self.last_position = self.position
             self.position = intersection_pos(self)
-
-        print(check_out_of_bounds(self))
         
         self.acc = new_acc
         self.time = self.time + 1
@@ -86,10 +84,20 @@ def check_out_of_bounds(car):
     elif lane.index == 0 or lane.index == 4 or lane.index == 8:
         return car.position[1] > 1042
 
-
 def check_collision(car1, car2):
-    pass
+    CH = 30
+    CW = 42
 
+    pos1 = car1.position
+    pos2 = car2.position
+
+    box1_min = [pos1[0], pos1[1]]
+    box1_max = [pos1[0] - CW, pos1[1] - CH]
+    box2_min = [pos2[0], pos2[1]]
+    box2_max = [pos2[0] - CW, pos2[1] - CH]
+    
+    return box1_max[0] <= box2_min[0] and box2_max[0] <= box1_min[0] and box1_max[1] <= box2_min[1] and box2_max[1] <= box1_min[1]
+    
 
 # Check if car hasn't entered the intersection yet    
 def before_intersection(car):

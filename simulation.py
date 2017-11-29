@@ -1,6 +1,6 @@
 import pyglet
 from SimObjects import SimObject
-from car import car
+from car import *
 from lane import lane
 from random import *
 from copy import deepcopy
@@ -99,6 +99,24 @@ class SimWindow(pyglet.window.Window):
                 self.loc.append(car(deepcopy(self.lane_10), 'green'))
             if lane == 11:
                 self.loc.append(car(deepcopy(self.lane_11), 'pink'))
+            # Make sure addition didn't cause a collision
+            for c1 in self.loc:
+                if c1.time == 0:
+                    for c2 in self.loc:
+                        if check_collision(c1,c2) and c1.time != c2.time:
+                            self.loc.remove(c1)
+                            break
+
+        # Delete out of bound cars
+        new_loc = []
+        for c1 in self.loc:
+            for c2 in self.loc:
+                if c1.position != c2.position and check_collision(c1,c2):
+                    c1.color = 'red'
+                    c2.color = 'red'
+            if not check_out_of_bounds(c1):
+                new_loc.append(c1)
+        self.loc = new_loc
 
             
 if __name__ == "__main__":
