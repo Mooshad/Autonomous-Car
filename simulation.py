@@ -29,15 +29,15 @@ class SimWindow(pyglet.window.Window):
     lane_1 = lane([0, 415-CH], [300-CW, 415-CH], [700, 415-CH], [1000, 415-CH], 1) # pink straight
     lane_2 = lane([0, 348-CH], [300-CW, 348-CH], [318, 300], [318, 0], 2) # pink right
 
-    lane_3 = lane([518, 0], [518, 300], [300-CW, 548-CH], [0, 548-CH], 3) # green left
+    lane_3 = lane([518, 0], [518, 300], [300-CW, 585+CW], [0, 585+CW], 3) # green left
     lane_4 = lane([585, 0], [585, 300], [585, 700+CW], [585, 1000+CW], 4) # green straight
     lane_5 = lane([652, 0], [652, 300], [700, 348], [1000, 348], 5) # green right
 
     lane_6 = lane([1000, 548-CH], [700, 548-CH], [452, 300], [452, 0], 6) # yellow left
     lane_7 = lane([1000, 615-CH], [700, 615-CH], [300-CW, 615-CH], [0, 615-CH], 7) # yellow straight
-    lane_8 = lane([1000, 682-CH], [700, 682-CH], [652, 700+CH], [652, 1000+CW], 8) # yellow right
+    lane_8 = lane([1000, 682-CH], [700, 682-CH], [652, 700], [652, 1000+CW], 8) # yellow right
 
-    lane_9 = lane([452, 1000+CW], [452, 700+CW], [700, 485], [1000, 485], 9) # blue left
+    lane_9 = lane([452, 1000+CW], [452, 700+CW], [700, 485-CH], [1000, 485-CH], 9) # blue left
     lane_10 = lane([385, 1000+CW], [385, 700+CW], [385, 300], [385, 0], 10) # blue straight
     lane_11 =  lane([318, 1000+CW], [318, 700+CW], [300-CW, 682-CH], [0, 682-CH], 11) # blue right
     
@@ -99,6 +99,7 @@ class SimWindow(pyglet.window.Window):
                 self.loc.append(car(deepcopy(self.lane_10), 'green'))
             if lane == 11:
                 self.loc.append(car(deepcopy(self.lane_11), 'pink'))
+
             # Make sure addition didn't cause a collision
             for c1 in self.loc:
                 if c1.time == 0:
@@ -107,7 +108,7 @@ class SimWindow(pyglet.window.Window):
                             self.loc.remove(c1)
                             break
 
-        # Delete out of bound cars
+        # Delete out of bound cars and check for collisions
         new_loc = []
         for c1 in self.loc:
             for c2 in self.loc:

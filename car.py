@@ -187,117 +187,33 @@ def intersection_pos(car):
     lane = car.lane
     x = car.position[0]
     y = car.position[1]
-    
-    if lane.index == 0:
-        h = lane.sip[0]
-        k = lane.eip[1]
-        r = abs(h - k)
-        angle = math.radians(-45)
-        omega = .01 + car.vel * .0005
-
-        angle = angle + omega
-        x = x + r * omega * math.cos(angle + math.pi / 2)
-        y = y + r * omega * math.sin(angle + math.pi / 2)
-        return [x,y]
         
-    elif lane.index == 1:
+    if lane.index == 1:
         return [x + car.vel, y]
-
-    elif lane.index == 2:
-        h = lane.sip[0]
-        k = lane.eip[1]
-        r = abs(h - k)
-        angle = math.radians(70)
-        omega = .01 + car.vel * .003
-
-        angle = angle + omega
-        x = x - r * omega * math.cos(angle + math.pi / 2)
-        y = y - r * omega * math.sin(angle + math.pi / 2)
-        return [x,y]
-        
-    elif lane.index == 3:
-        h = lane.sip[1]
-        k = lane.eip[0]
-        r = abs(h - k)
-        angle = math.radians(-57)
-        omega = .01 + car.vel * .025
-
-        angle = angle + omega
-        x = x - r * omega * math.cos(angle + math.pi / 2)
-        y = y + r * omega * math.sin(angle + math.pi / 2)
-        #print [x,y]
-        return [x,y]
 
     elif lane.index == 4:
         return [x, y + car.vel]
-
-    elif lane.index == 5:
-        h = lane.sip[0]
-        k = lane.eip[1]
-        r = abs(h - k)
-        angle = math.radians(60)
-        omega = .01 + car.vel * .0005
-
-        angle = angle + omega
-        x = x - r * omega * math.cos(angle + math.pi / 2)
-        y = y + r * omega * math.sin(angle + math.pi / 2)
-        #print [x, y]
-        return [x,y]
-
-    elif lane.index == 6:
-        h = lane.sip[0]
-        k = lane.eip[1]
-        r = abs(h - k)
-        angle = math.radians(-50)
-        omega = .01 + car.vel * .0005
-
-        angle = angle + omega
-        x = x - r * omega * math.cos(angle + math.pi / 2)
-        y = y - r * omega * math.sin(angle + math.pi / 2)
-        #print [x, y]
-        return [x,y]
     
     elif lane.index == 7:
         return [x - car.vel, y]
-    
-    elif lane.index == 8:
-        h = lane.sip[0]
-        k = lane.eip[1]
-        r = abs(h - k)
-        angle = math.radians(-40)
-        omega = .01 + car.vel * .03
-
-        angle = angle + omega
-        x = x - r * omega * math.cos(angle + math.pi / 2)
-        y = y + r * omega * math.sin(angle + math.pi / 2)
-        #print [x, y]
-        return [x,y]
-
-    elif lane.index == 9:
-        h = lane.sip[1]
-        k = lane.eip[0]
-        r = abs(h - k)
-        angle = math.radians(-45)
-        omega = .01 + car.vel * .02
-
-        angle = angle + omega
-        x = x + r * omega * math.cos(angle + math.pi / 2)
-        y = y - r * omega * math.sin(angle + math.pi / 2)
-        #print [x, y]
-        return [x,y]
 
     elif lane.index == 10:
         return [x, y - car.vel]
 
-    elif lane.index == 11:
-        h = lane.sip[1]
-        k = lane.eip[0]
-        r = abs(h - k)
-        angle = math.radians(-35)
-        omega = .01 + car.vel * .0005
+    else:
+        p1 = lane.sip
+        p2 = lane.eip
+        m = (float(p2[1] - p1[1]))/float((p2[0] - p1[0]))
 
-        angle = angle + omega
-        x = x - r * omega * math.cos(angle + math.pi / 2)
-        y = y - r * omega * math.sin(angle + math.pi / 2)
-        #print [x, y]
+        if lane.index == 0 or lane.index == 2 or lane.index == 5 or lane.index == 9:
+            x = x + car.vel
+            y = m * car.vel + y
+            
+        elif lane.index == 3 or lane.index == 8:
+            x = m * car.vel + x
+            y = y + car.vel
+            pass
+        elif lane.index == 6 or lane.index == 11:
+            x = x - car.vel
+            y = y - m * car.vel
         return [x,y]
