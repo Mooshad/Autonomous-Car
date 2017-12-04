@@ -7,10 +7,8 @@ from copy import deepcopy
 from math import *
 from CGSolver import *
 
-
 # This class has everything needed to init and animate our simulation
 class SimWindow(pyglet.window.Window):
-
 
     # ---------- BEGIN CONSTANT DEFINITIONS ----------
     MAX_VEL = 5 # Maximum velocity
@@ -70,24 +68,28 @@ class SimWindow(pyglet.window.Window):
     def update(self, dt):
         for c in self.loc:
             #
-
-
             # GAME THEORY STUFF DONE HERE, CHANGE ACCELERATIONS
             # Coalition Game Start.
             if len(self.loc) != 0:
                 cars = []
-                [carInC, carNotInC] = [MergeAndSplit(1, 1000, self.loc, 5)[0], MergeAndSplit(1, 1000, self.loc, 5)[1]]
+                [carInC, carNotInC] = [MergeAndSplit(1, 100, self.loc, 15)[0], MergeAndSplit(1, 100, self.loc, 15)[1]]
                 for cinc in carInC:
-                    cinc.on_tick(1)
+                    if before_intersection(cinc):
+                        cinc.on_tick(1)
+                    else:
+                        cinc.on_tick(0)
                 for cnotinc in carNotInC:
-                    cnotinc.on_tick(-1)
+                    if before_intersection(cnotinc):
+                        cnotinc.on_tick(-1)
+                    else:
+                        cnotinc.on_tick(0)
                 if len(carInC) != 0:
                     cars.extend(carInC[i] for i in range(len(carInC)))
                 if len(carNotInC) != 0:
                     cars.extend(carNotInC[i] for i in range(len(carNotInC)))
                 if len(cars) != 0:
                     self.loc = deepcopy(cars)
-            # Coalition Game End.
+                # Coalition Game End.
 
             # Update car's acceleration each tick
             #c.on_tick(0)
@@ -133,8 +135,9 @@ class SimWindow(pyglet.window.Window):
         for c1 in self.loc:
             for c2 in self.loc:
                 if c1.position != c2.position and check_collision(c1,c2):
-                    c1.color = 'red'
-                    c2.color = 'red'
+                    if after_intersection(c1) and after_intersection(c1):
+                        c1.color = 'red'
+                        c2.color = 'red'
             if not check_out_of_bounds(c1):
                 new_loc.append(c1)
         self.loc = new_loc
@@ -143,6 +146,5 @@ class SimWindow(pyglet.window.Window):
             
 if __name__ == "__main__":
         window = SimWindow(1000, 1000, "Test", resizable=False)
-        pyglet.clock.schedule_interval(window.update, 1/10) #window.frame_rate
+        pyglet.clock.schedule_interval(window.update, window.frame_rate) #window.frame_rate
         pyglet.app.run()
-        
